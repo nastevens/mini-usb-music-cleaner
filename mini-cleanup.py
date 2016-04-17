@@ -1,20 +1,24 @@
+# MINI USB Music Cleaner
+#
+# TODO: Insert license
+
 import os
 import sys
 
 from mutagen.id3 import ID3, APIC
-
 from os.path import join
 
-
 def save_image_tag(mp3, image):
+    """Adds the data in `image` to the `mp3`"""
     print mp3.filename, 'added image'
     mp3.delall(u'APIC')
     mp3.add(APIC(mime=u'image/jpeg', type=3, desc=u'None', data=image))
     mp3.save(v2_version=3)
 
 
-def has_image_tag(mp3):
-    return bool(mp3.getall(u'APIC'))
+def has_image_tag(id3):
+    """Returns true if the ID3 info contains an image tag"""
+    return bool(id3.getall(u'APIC'))
 
 
 def main():
